@@ -44,8 +44,9 @@ export function ArtistContextMenu({
       animationType="slide"
       onRequestClose={onClose}
     >
-      <S.Overlay onPress={onClose}>
-        <S.Sheet onStartShouldSetResponder={() => true}>
+      <S.Overlay>
+        <S.Backdrop onPress={onClose} />
+        <S.Sheet>
           <S.Handle>
             <S.HandleBar />
           </S.Handle>

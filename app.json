@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "music_player",
-    "slug": "music_player",
+    "name": "MUME",
+    "slug": "mume",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { FlatList, ActivityIndicator, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from 'styled-components/native';
 import { useSearchArtists } from '../../hooks/useSearchArtists';
 import { ArtistContextMenu } from '../ArtistContextMenu';
 import { getSearchSongs } from '../../../../api/apiClient';
@@ -19,6 +20,7 @@ function getArtistImageUrl(artist: Artist): string {
 }
 
 export function ArtistsTab() {
+  const theme: any = useTheme();
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -112,7 +114,7 @@ export function ArtistsTab() {
       <S.SearchRow>
         <S.Input
           placeholder="Search artists..."
-          placeholderTextColor="#9ca3af"
+          placeholderTextColor={theme.textMuted}
           value={query}
           onChangeText={(text: string) => {
             setQuery(text);
@@ -128,7 +130,7 @@ export function ArtistsTab() {
 
       {isLoading && artists.length === 0 ? (
         <S.Placeholder>
-          <ActivityIndicator size="large" color="#f97316" />
+          <ActivityIndicator size="large" color={theme.primary} />
         </S.Placeholder>
       ) : artists.length === 0 ? (
         <S.Placeholder>
@@ -149,7 +151,7 @@ export function ArtistsTab() {
                 <S.ArtistName numberOfLines={1}>{item.name}</S.ArtistName>
               </S.ArtistRowTouchable>
               <S.MenuBtn onPress={() => setContextArtist(item)}>
-                <Ionicons name="ellipsis-vertical" size={20} color="#6b7280" />
+                <Ionicons name="ellipsis-vertical" size={20} color={theme.textMuted} />
               </S.MenuBtn>
             </S.ArtistRow>
           )}
@@ -157,7 +159,7 @@ export function ArtistsTab() {
           onEndReachedThreshold={0.3}
           ListFooterComponent={
             isFetchingNextPage ? (
-              <ActivityIndicator size="small" color="#f97316" />
+              <ActivityIndicator size="small" color={theme.primary} />
             ) : null
           }
         />

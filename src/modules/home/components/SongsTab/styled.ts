@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const SearchRow = styled.View`
@@ -13,20 +13,20 @@ export const SearchRow = styled.View`
 
 export const Input = styled.TextInput`
   flex: 1;
-  background-color: #f9fafb;
+  background-color: ${(props: any) => props.theme.input};
   border-radius: 12px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 16px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   border-width: 1px;
-  border-color: #e5e7eb;
+  border-color: ${(props: any) => props.theme.border};
 `;
 
 export const SearchBtn = styled.TouchableOpacity`
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 12px;
@@ -45,13 +45,13 @@ export const ListHeader = styled.View`
   align-items: center;
   padding: 12px 16px;
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const SongCount = styled.Text`
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const SortBtn = styled.TouchableOpacity`
@@ -63,7 +63,7 @@ export const SortBtn = styled.TouchableOpacity`
 export const SortLabel = styled.Text`
   font-size: 14px;
   font-weight: 500;
-  color: #f97316;
+  color: ${(props: any) => props.theme.primary};
 `;
 
 export const SortMenu = styled.View`
@@ -80,17 +80,17 @@ export const Placeholder = styled.View`
 
 export const PlaceholderText = styled.Text`
   font-size: 16px;
-  color: #9ca3af;
+  color: ${(props: any) => props.theme.textMuted};
 `;
 
 export const SortModalOverlay = styled.Pressable`
   flex: 1;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const SortModalContent = styled.View`
   padding: 12px;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.card};
   border-radius: 12px;
   margin: 8px 16px;
   shadow-color: #000;
@@ -108,6 +108,6 @@ export const SortOption = styled.TouchableOpacity`
 
 export const SortOptionText = styled.Text`
   font-size: 16px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-left: 12px;
 `;

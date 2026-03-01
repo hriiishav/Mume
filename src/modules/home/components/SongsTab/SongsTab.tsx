@@ -4,15 +4,17 @@ import {
   ActivityIndicator,
   Keyboard,
   Modal,
-  View,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { useSearchSongs } from '../../hooks/useSearchSongs';
 import { SongListItem } from '../SongListItem';
 import { SongContextMenu } from '../SongContextMenu';
 import { usePlayerStore } from '../../../player/store/playerStore';
 import { useQueueStore } from '../../../queue/store/queueStore';
 import { useRecentlyPlayedStore } from '../../store/recentlyPlayedStore';
+import { AddToPlaylistModal } from '../../../playlists/components/AddToPlaylistModal/AddToPlaylistModal';
 import type { Song } from '../../../../core/types';
 import * as S from './styled';
 
@@ -32,6 +34,21 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const DEFAULT_SONGS_QUERY = 'hits';
+
+const SortModalContent = styled.View`
+  position: absolute;
+  top: 120px;
+  right: 16px;
+  left: 16px;
+  background-color: ${(props: any) => props.theme.card};
+  border-radius: 12px;
+  padding: 8px;
+  shadow-color: #000;
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.15;
+  shadow-radius: 8px;
+  elevation: 5;
+`;
 
 function sortSongs(songs: Song[], option: SortOption): Song[] {
   const sorted = [...songs];
@@ -62,11 +79,13 @@ function sortSongs(songs: Song[], option: SortOption): Song[] {
 }
 
 export function SongsTab() {
+  const theme: any = useTheme();
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [sortOption, setSortOption] = useState<SortOption>('ascending');
   const [sortModalVisible, setSortModalVisible] = useState(false);
   const [contextSong, setContextSong] = useState<Song | null>(null);
+  const [playlistModalVisible, setPlaylistModalVisible] = useState(false);
 
   const effectiveQuery = debouncedQuery.trim() || DEFAULT_SONGS_QUERY;
 
@@ -141,18 +160,18 @@ export function SongsTab() {
         <S.SongCount>{totalCount} songs</S.SongCount>
         <S.SortBtn onPress={() => setSortModalVisible(true)}>
           <S.SortLabel>{SORT_LABELS[sortOption]}</S.SortLabel>
-          <Ionicons name="swap-vertical" size={18} color="#f97316" />
+          <Ionicons name="swap-vertical" size={18} color={theme.primary} />
         </S.SortBtn>
       </S.ListHeader>
     );
-  }, [songs.length, sortOption, totalCount]);
+  }, [songs.length, sortOption, totalCount, theme.primary]);
 
   return (
     <S.Container>
       <S.SearchRow>
         <S.Input
           placeholder="Search songs..."
-          placeholderTextColor="#9ca3af"
+          placeholderTextColor={theme.textMuted}
           value={query}
           onChangeText={(text: string) => {
             setQuery(text);
@@ -168,7 +187,7 @@ export function SongsTab() {
 
       {isLoading && songs.length === 0 ? (
         <S.Placeholder>
-          <ActivityIndicator size="large" color="#f97316" />
+          <ActivityIndicator size="large" color={theme.primary} />
         </S.Placeholder>
       ) : songs.length === 0 ? (
         <S.Placeholder>
@@ -194,7 +213,7 @@ export function SongsTab() {
           onEndReachedThreshold={0.3}
           ListFooterComponent={
             isFetchingNextPage ? (
-              <ActivityIndicator size="small" color="#f97316" />
+              <ActivityIndicator size="small" color={theme.primary} />
             ) : null
           }
         />
@@ -209,22 +228,7 @@ export function SongsTab() {
         <S.SortModalOverlay
           onPress={() => setSortModalVisible(false)}
         >
-          <View
-            style={{
-              position: 'absolute',
-              top: 120,
-              right: 16,
-              left: 16,
-              backgroundColor: '#fff',
-              borderRadius: 12,
-              padding: 8,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.15,
-              shadowRadius: 8,
-              elevation: 5,
-            }}
-          >
+          <SortModalContent>
             {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
               <S.SortOption
                 key={opt}
@@ -240,12 +244,12 @@ export function SongsTab() {
                       : 'radio-button-off'
                   }
                   size={22}
-                  color="#f97316"
+                  color={theme.primary}
                 />
                 <S.SortOptionText>{SORT_LABELS[opt]}</S.SortOptionText>
               </S.SortOption>
             ))}
-          </View>
+          </SortModalContent>
         </S.SortModalOverlay>
       </Modal>
 
@@ -255,6 +259,13 @@ export function SongsTab() {
         onClose={() => setContextSong(null)}
         onPlayNext={handlePlayNext}
         onAddToQueue={handleAddToQueue}
+        onAddToPlaylist={() => setPlaylistModalVisible(true)}
+      />
+
+      <AddToPlaylistModal
+        visible={playlistModalVisible}
+        song={contextSong}
+        onClose={() => setPlaylistModalVisible(false)}
       />
     </S.Container>
   );

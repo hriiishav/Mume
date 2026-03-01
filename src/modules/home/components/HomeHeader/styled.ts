@@ -8,9 +8,9 @@ export const Container = styled.View`
   padding-right: 16px;
   padding-top: 48px;
   padding-bottom: 12px;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const Brand = styled.View`
@@ -19,20 +19,12 @@ export const Brand = styled.View`
   gap: 8px;
 `;
 
-export const Logo = styled.Text`
-  font-size: 24px;
-`;
-
 export const Title = styled.Text`
   font-size: 22px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const SearchBtn = styled.TouchableOpacity`
   padding: 8px;
-`;
-
-export const SearchIcon = styled.Text`
-  font-size: 22px;
 `;

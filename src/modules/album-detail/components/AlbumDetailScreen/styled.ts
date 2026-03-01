@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const Header = styled.View`
@@ -12,11 +12,16 @@ export const Header = styled.View`
   padding: 16px;
   padding-top: 48px;
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const BackBtn = styled.TouchableOpacity`
   padding: 8px;
+`;
+
+export const BackIcon = styled.Text`
+  font-size: 24px;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const HeaderRight = styled.View`
@@ -38,14 +43,14 @@ export const Artwork = styled.Image`
 export const ArtistName = styled.Text`
   font-size: 24px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-top: 16px;
   text-align: center;
 `;
 
 export const Stats = styled.Text`
   font-size: 14px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 8px;
 `;
 
@@ -64,7 +69,7 @@ export const ActionBtn = styled.TouchableOpacity`
   justify-content: center;
   padding: 14px;
   border-radius: 12px;
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   gap: 8px;
 `;
 
@@ -89,11 +94,11 @@ export const SectionHeader = styled.View`
 export const SectionTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const SeeAll = styled.Text`
   font-size: 14px;
-  color: #f97316;
+  color: ${(props: any) => props.theme.primary};
   font-weight: 600;
 `;

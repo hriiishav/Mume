@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const Header = styled.View`
@@ -12,7 +12,7 @@ export const Header = styled.View`
   padding: 16px;
   padding-top: 48px;
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const BackBtn = styled.TouchableOpacity`
@@ -22,14 +22,14 @@ export const BackBtn = styled.TouchableOpacity`
 
 export const BackIcon = styled.Text`
   font-size: 24px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const HeaderTitle = styled.Text`
   flex: 1;
   font-size: 18px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   text-align: center;
 `;
 
@@ -47,17 +47,17 @@ export const Empty = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const EmptyText = styled.Text`
   font-size: 18px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const EmptyHint = styled.Text`
   font-size: 14px;
-  color: #9ca3af;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 8px;
 `;
 
@@ -69,10 +69,10 @@ export const Item = styled.TouchableOpacity<{ $active?: boolean }>`
   margin-right: 16px;
   margin-top: 4px;
   margin-bottom: 4px;
-  background-color: #f9fafb;
+  background-color: ${(props: any) => props.theme.surface};
   border-radius: 12px;
   border-width: ${(props: { $active?: boolean }) => (props.$active ? 2 : 1)}px;
-  border-color: ${(props: { $active?: boolean }) => (props.$active ? '#f97316' : '#f3f4f6')};
+  border-color: ${(props: any) => (props.$active ? props.theme.primary : props.theme.border)};
 `;
 
 export const ItemArtwork = styled.Image`
@@ -89,12 +89,12 @@ export const ItemInfo = styled.View`
 export const ItemTitle = styled.Text`
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const ItemSubtitle = styled.Text`
   font-size: 13px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -102,12 +102,12 @@ export const RemoveBtn = styled.TouchableOpacity`
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background-color: #e5e7eb;
+  background-color: ${(props: any) => props.theme.border};
   align-items: center;
   justify-content: center;
 `;
 
 export const RemoveBtnText = styled.Text`
   font-size: 20px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
 `;

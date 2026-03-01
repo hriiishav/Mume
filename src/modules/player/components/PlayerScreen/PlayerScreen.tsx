@@ -4,11 +4,15 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { usePlayerStore } from '../../store/playerStore';
 import { useAudioPlayer } from '../../hooks/useAudioPlayer';
 import { getSongImageUrl } from '../../../../core/utils/imageUtils';
+import { useFavoritesStore } from '../../../favorites/store/favoritesStore';
+import { usePlaylistsStore } from '../../../playlists/store/playlistsStore';
+import { AddToPlaylistModal } from '../../../playlists/components/AddToPlaylistModal/AddToPlaylistModal';
 import * as S from './styled';
 
 export function PlayerScreen() {
   const navigation = useNavigation();
   const [trackWidth, setTrackWidth] = useState(0);
+  const [playlistModalVisible, setPlaylistModalVisible] = useState(false);
 
   const currentSong = usePlayerStore((s) => s.currentSong);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
@@ -21,6 +25,9 @@ export function PlayerScreen() {
   const cycleRepeat = usePlayerStore((s) => s.cycleRepeat);
 
   const { playNext, playPrev, seek, seekBack10, seekForward10 } = useAudioPlayer();
+
+  const isFavorite = useFavoritesStore((s) => s.isFavorite(currentSong?.id ?? ''));
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
 
   const handleSeek = useCallback(
     (e: { nativeEvent: { locationX: number } }) => {
@@ -106,12 +113,28 @@ export function PlayerScreen() {
         <S.SideBtn onPress={toggleShuffle}>
           <S.SideBtnText $active={shuffle}>Shuffle</S.SideBtnText>
         </S.SideBtn>
+        <S.SideBtn onPress={() => currentSong && toggleFavorite(currentSong)}>
+          <Ionicons
+            name={isFavorite ? 'heart' : 'heart-outline'}
+            size={24}
+            color={isFavorite ? '#f97316' : '#6b7280'}
+          />
+        </S.SideBtn>
+        <S.SideBtn onPress={() => setPlaylistModalVisible(true)}>
+          <Ionicons name="add-circle-outline" size={24} color="#6b7280" />
+        </S.SideBtn>
         <S.SideBtn onPress={cycleRepeat}>
           <S.SideBtnText $active={repeat !== 'off'}>
             {repeat === 'one' ? '1' : repeat === 'all' ? 'All' : 'Repeat'}
           </S.SideBtnText>
         </S.SideBtn>
       </S.SecondaryControls>
+
+      <AddToPlaylistModal
+        visible={playlistModalVisible}
+        song={currentSong}
+        onClose={() => setPlaylistModalVisible(false)}
+      />
     </S.Container>
   );
 }

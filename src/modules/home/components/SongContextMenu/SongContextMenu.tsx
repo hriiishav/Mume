@@ -3,6 +3,7 @@ import { Modal } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import type { Song } from '../../../../core/types';
 import { getSongImageUrl } from '../../../../core/utils/imageUtils';
+import { useFavoritesStore } from '../../../favorites/store/favoritesStore';
 import * as S from './styled';
 
 type SongContextMenuProps = {
@@ -22,7 +23,11 @@ export function SongContextMenu({
   onClose,
   onPlayNext,
   onAddToQueue,
+  onAddToPlaylist,
 }: SongContextMenuProps) {
+  const isFavorite = useFavoritesStore((s) => s.isFavorite(song?.id ?? ''));
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+
   if (!song) return null;
 
   const imageUrl = getSongImageUrl(song.image);
@@ -51,8 +56,9 @@ export function SongContextMenu({
       animationType="slide"
       onRequestClose={onClose}
     >
-      <S.Overlay onPress={onClose}>
-        <S.Sheet onStartShouldSetResponder={() => true}>
+      <S.Overlay>
+        <S.Backdrop onPress={onClose} />
+        <S.Sheet>
           <S.Handle>
             <S.HandleBar />
           </S.Handle>
@@ -64,6 +70,20 @@ export function SongContextMenu({
             </S.SongDetails>
             <S.Duration>{durationStr}</S.Duration>
           </S.SongInfo>
+
+          <S.MenuItem
+            onPress={() => handleAction(() => toggleFavorite(song))}
+            activeOpacity={0.7}
+          >
+            <S.MenuIcon>
+              <Ionicons
+                name={isFavorite ? 'heart' : 'heart-outline'}
+                size={22}
+                color={isFavorite ? '#f97316' : '#1f2937'}
+              />
+            </S.MenuIcon>
+            <S.MenuText>{isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}</S.MenuText>
+          </S.MenuItem>
 
           <S.MenuItem
             onPress={() => handleAction(() => onPlayNext(song))}
@@ -85,7 +105,10 @@ export function SongContextMenu({
             <S.MenuText>Add to Playing Queue</S.MenuText>
           </S.MenuItem>
 
-          <S.MenuItem onPress={onClose} activeOpacity={0.7}>
+          <S.MenuItem
+            onPress={() => handleAction(() => onAddToPlaylist?.(song))}
+            activeOpacity={0.7}
+          >
             <S.MenuIcon>
               <Ionicons name="add-circle-outline" size={22} color="#1f2937" />
             </S.MenuIcon>

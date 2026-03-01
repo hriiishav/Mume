@@ -11,6 +11,9 @@ export const API_ENDPOINTS = {
 export const STORAGE_KEYS = {
   QUEUE: '@music_player_queue',
   RECENTLY_PLAYED: '@music_player_recently_played',
+  FAVORITES: '@music_player_favorites',
+  PLAYLISTS: '@music_player_playlists',
+  THEME: '@music_player_theme',
 } as const;
 
 export const IMAGE_QUALITY = {

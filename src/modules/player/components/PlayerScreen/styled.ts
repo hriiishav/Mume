@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
   align-items: center;
   padding: 24px;
   justify-content: space-around;
@@ -15,12 +15,12 @@ export const Empty = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const EmptyText = styled.Text`
   font-size: 16px;
-  color: #9ca3af;
+  color: ${(props: any) => props.theme.textMuted};
 `;
 
 export const HeaderRow = styled.View`
@@ -46,7 +46,7 @@ export const QueueBtn = styled.TouchableOpacity`
 
 export const BackIcon = styled.Text`
   font-size: 24px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const Artwork = styled.Image`
@@ -61,13 +61,13 @@ export const Artwork = styled.Image`
 export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-top: 24px;
 `;
 
 export const Artist = styled.Text`
   font-size: 16px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 4px;
 `;
 
@@ -79,7 +79,7 @@ export const Progress = styled.View`
 export const SliderTrack = styled.Pressable`
   width: 100%;
   height: 6px;
-  background-color: #e5e7eb;
+  background-color: ${(props: any) => props.theme.border};
   border-radius: 3px;
   overflow: hidden;
 `;
@@ -87,7 +87,7 @@ export const SliderTrack = styled.Pressable`
 export const SliderFill = styled.View<{ width: string }>`
   height: 100%;
   width: ${(props: { width: string }) => props.width};
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   border-radius: 3px;
 `;
 
@@ -99,7 +99,7 @@ export const TimeRow = styled.View`
 
 export const Time = styled.Text`
   font-size: 12px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
 `;
 
 export const MainControls = styled.View`
@@ -116,12 +116,12 @@ export const CtrlBtn = styled.TouchableOpacity`
 
 export const CtrlIcon = styled.Text`
   font-size: 24px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const CtrlLabel = styled.Text`
   font-size: 10px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -129,7 +129,7 @@ export const PlayBtn = styled.TouchableOpacity`
   width: 64px;
   height: 64px;
   border-radius: 32px;
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   align-items: center;
   justify-content: center;
   margin-horizontal: 8px;
@@ -153,6 +153,6 @@ export const SideBtn = styled.TouchableOpacity`
 
 export const SideBtnText = styled.Text<{ $active?: boolean }>`
   font-size: 14px;
-  color: ${(props: { $active?: boolean }) => (props.$active ? '#f97316' : '#6b7280')};
+  color: ${(props: any) => (props.$active ? props.theme.primary : props.theme.textMuted)};
   font-weight: ${(props: { $active?: boolean }) => (props.$active ? '600' : '400')};
 `;

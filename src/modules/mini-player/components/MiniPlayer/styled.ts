@@ -4,9 +4,9 @@ export const Container = styled.Pressable`
   flex-direction: row;
   align-items: center;
   padding: 12px;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
   border-top-width: 1px;
-  border-top-color: #f3f4f6;
+  border-top-color: ${(props: any) => props.theme.border};
 `;
 
 export const Artwork = styled.Image`
@@ -23,12 +23,12 @@ export const Info = styled.View`
 export const Title = styled.Text`
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const Subtitle = styled.Text`
   font-size: 12px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -44,14 +44,14 @@ export const CtrlBtn = styled.TouchableOpacity`
 
 export const CtrlText = styled.Text`
   font-size: 20px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const PlayBtn = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   align-items: center;
   justify-content: center;
 `;

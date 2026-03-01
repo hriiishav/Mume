@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const Placeholder = styled.View`
@@ -13,7 +13,7 @@ export const Placeholder = styled.View`
 
 export const PlaceholderText = styled.Text`
   font-size: 16px;
-  color: #9ca3af;
+  color: ${(props: any) => props.theme.textMuted};
 `;
 
 export const ListHeader = styled.View`
@@ -23,13 +23,13 @@ export const ListHeader = styled.View`
   padding: 16px;
   padding-bottom: 12px;
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const AlbumCount = styled.Text`
   font-size: 16px;
   font-weight: 700;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const SortBtn = styled.TouchableOpacity`
@@ -41,7 +41,7 @@ export const SortBtn = styled.TouchableOpacity`
 export const SortLabel = styled.Text`
   font-size: 14px;
   font-weight: 500;
-  color: #f97316;
+  color: ${(props: any) => props.theme.primary};
 `;
 
 export const AlbumCard = styled.View`
@@ -71,7 +71,7 @@ export const AlbumTitle = styled.Text`
   flex: 1;
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const MenuBtn = styled.TouchableOpacity`
@@ -81,19 +81,19 @@ export const MenuBtn = styled.TouchableOpacity`
 
 export const AlbumArtist = styled.Text`
   font-size: 12px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
 export const AlbumSongCount = styled.Text`
   font-size: 12px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
 export const SortModalOverlay = styled.Pressable`
   flex: 1;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const SortOption = styled.TouchableOpacity`
@@ -104,6 +104,6 @@ export const SortOption = styled.TouchableOpacity`
 
 export const SortOptionText = styled.Text`
   font-size: 16px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-left: 12px;
 `;

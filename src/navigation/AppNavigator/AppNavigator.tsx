@@ -16,24 +16,29 @@ import { MiniPlayer } from '../../modules/mini-player/components/MiniPlayer';
 import { SearchScreen } from '../../modules/search/components/SearchScreen';
 import { ArtistDetailScreen } from '../../modules/artist-detail/components/ArtistDetailScreen';
 import { AlbumDetailScreen } from '../../modules/album-detail/components/AlbumDetailScreen';
+import { useThemeStore } from '../../modules/settings/store/themeStore';
+import { lightTheme, darkTheme } from '../../core/theme';
 import * as S from './styled';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
+  const themeMode = useThemeStore((s) => s.themeMode);
+  const theme = themeMode === 'light' ? lightTheme : darkTheme;
+
   return (
     <S.TabWrapper>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: '#fff',
-            borderTopColor: '#f3f4f6',
+            backgroundColor: theme.background,
+            borderTopColor: theme.border,
             borderTopWidth: 1,
           },
-          tabBarActiveTintColor: '#f97316',
-          tabBarInactiveTintColor: '#9ca3af',
+          tabBarActiveTintColor: theme.primary,
+          tabBarInactiveTintColor: theme.textMuted,
           tabBarLabelStyle: { fontSize: 12, fontWeight: '500' },
         }}
         tabBar={(props) => (
@@ -105,13 +110,16 @@ function HomeTabs() {
 }
 
 export function AppNavigator() {
+  const themeMode = useThemeStore((s) => s.themeMode);
+  const theme = themeMode === 'light' ? lightTheme : darkTheme;
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: '#0f172a' },
-          headerTintColor: '#eee',
-          contentStyle: { backgroundColor: '#0f172a' },
+          headerStyle: { backgroundColor: theme.background },
+          headerTintColor: theme.text,
+          contentStyle: { backgroundColor: theme.background },
         }}
       >
         <Stack.Screen

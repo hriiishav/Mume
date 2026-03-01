@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useTheme } from 'styled-components/native';
 import { useRecentlyPlayedStore } from '../../store/recentlyPlayedStore';
 import { useSuggestedSongs, useSuggestedArtists } from '../../hooks/useSuggestedContent';
 import { usePlayerStore } from '../../../player/store/playerStore';
@@ -70,6 +71,7 @@ function ArtistCard({ artist, onPress }: ArtistCardProps) {
 }
 
 export function SuggestedTab() {
+  const theme: any = useTheme();
   const recentlyPlayed = useRecentlyPlayedStore((s) => s.songs);
   const loadRecentlyPlayed = useRecentlyPlayedStore((s) => s.loadFromStorage);
 
@@ -119,7 +121,7 @@ export function SuggestedTab() {
 
       <Section title="Artists">
         {artistsLoading ? (
-          <ActivityIndicator size="small" color="#f97316" />
+          <ActivityIndicator size="small" color={theme.primary} />
         ) : suggestedArtists.length === 0 ? (
           <S.EmptyText>No artists to show</S.EmptyText>
         ) : (
@@ -129,7 +131,7 @@ export function SuggestedTab() {
             style={{ marginHorizontal: -16 }}
           >
             {suggestedArtists.slice(0, 6).map((artist) => (
-              <ArtistCard key={artist.id} artist={artist} onPress={() => {}} />
+              <ArtistCard key={artist.id} artist={artist} onPress={() => { }} />
             ))}
           </ScrollView>
         )}
@@ -137,7 +139,7 @@ export function SuggestedTab() {
 
       <Section title="Most Played">
         {songsLoading ? (
-          <ActivityIndicator size="small" color="#f97316" />
+          <ActivityIndicator size="small" color={theme.primary} />
         ) : suggestedSongs.length === 0 ? (
           <S.EmptyText>No songs to show</S.EmptyText>
         ) : (

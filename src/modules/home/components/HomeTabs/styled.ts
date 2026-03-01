@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const ScrollContent = styled.View`
@@ -20,7 +20,7 @@ export const Tab = styled.TouchableOpacity`
 
 export const TabLabel = styled.Text<{ $active?: boolean }>`
   font-size: 16px;
-  color: ${(props: { $active?: boolean }) => (props.$active ? '#f97316' : '#6b7280')};
+  color: ${(props: any) => (props.$active ? props.theme.primary : props.theme.textMuted)};
   font-weight: ${(props: { $active?: boolean }) => (props.$active ? '600' : '500')};
 `;
 
@@ -30,6 +30,6 @@ export const Underline = styled.View`
   left: 0;
   right: 0;
   height: 3px;
-  background-color: #f97316;
+  background-color: ${(props: any) => props.theme.primary};
   border-radius: 2px;
 `;

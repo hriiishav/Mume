@@ -3,10 +3,11 @@ import {
   FlatList,
   ActivityIndicator,
   Modal,
-  View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { useSearchAlbums } from '../../hooks/useSearchAlbums';
 import { AlbumContextMenu } from '../AlbumContextMenu';
 import { getAlbumById, getSearchSongs } from '../../../../api/apiClient';
@@ -28,6 +29,21 @@ const SORT_LABELS: Record<AlbumSortOption, string> = {
 };
 
 const DEFAULT_ALBUMS_QUERY = 'a';
+
+const SortModalContent = styled.View`
+  position: absolute;
+  top: 120px;
+  right: 16px;
+  left: 16px;
+  background-color: ${(props: any) => props.theme.card};
+  border-radius: 12;
+  padding: 8px;
+  shadow-color: #000;
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.15;
+  shadow-radius: 8px;
+  elevation: 5;
+`;
 
 function sortAlbums(albums: Album[], option: AlbumSortOption): Album[] {
   const sorted = [...albums];
@@ -56,6 +72,7 @@ function sortAlbums(albums: Album[], option: AlbumSortOption): Album[] {
 }
 
 export function AlbumsTab() {
+  const theme: any = useTheme();
   const navigation = useNavigation();
   const [debouncedQuery] = useState(DEFAULT_ALBUMS_QUERY);
   const [sortOption, setSortOption] = useState<AlbumSortOption>('dateAsc');
@@ -150,11 +167,11 @@ export function AlbumsTab() {
         <S.AlbumCount>{totalCount} albums</S.AlbumCount>
         <S.SortBtn onPress={() => setSortModalVisible(true)}>
           <S.SortLabel>{SORT_LABELS[sortOption]}</S.SortLabel>
-          <Ionicons name="swap-vertical" size={18} color="#f97316" />
+          <Ionicons name="swap-vertical" size={18} color={theme.primary} />
         </S.SortBtn>
       </S.ListHeader>
     );
-  }, [albums.length, totalCount, sortOption]);
+  }, [albums.length, totalCount, sortOption, theme.primary]);
 
   const renderAlbum = useCallback(
     ({ item }: { item: Album }) => {
@@ -177,7 +194,7 @@ export function AlbumsTab() {
               <S.AlbumTitleRow>
                 <S.AlbumTitle numberOfLines={1}>{item.name}</S.AlbumTitle>
                 <S.MenuBtn onPress={() => setContextAlbum(item)}>
-                  <Ionicons name="ellipsis-vertical" size={18} color="#6b7280" />
+                  <Ionicons name="ellipsis-vertical" size={18} color={theme.textMuted} />
                 </S.MenuBtn>
               </S.AlbumTitleRow>
               <S.AlbumArtist numberOfLines={1}>
@@ -189,14 +206,14 @@ export function AlbumsTab() {
         </S.AlbumCard>
       );
     },
-    [handleAlbumPress]
+    [handleAlbumPress, theme.textMuted]
   );
 
   return (
     <S.Container>
       {isLoading && albums.length === 0 ? (
         <S.Placeholder>
-          <ActivityIndicator size="large" color="#f97316" />
+          <ActivityIndicator size="large" color={theme.primary} />
         </S.Placeholder>
       ) : albums.length === 0 ? (
         <S.Placeholder>
@@ -219,7 +236,7 @@ export function AlbumsTab() {
           onEndReachedThreshold={0.3}
           ListFooterComponent={
             isFetchingNextPage ? (
-              <ActivityIndicator size="small" color="#f97316" />
+              <ActivityIndicator size="small" color={theme.primary} />
             ) : null
           }
         />
@@ -232,7 +249,7 @@ export function AlbumsTab() {
         onRequestClose={() => setSortModalVisible(false)}
       >
         <S.SortModalOverlay onPress={() => setSortModalVisible(false)}>
-          <View style={sortModalStyle}>
+          <SortModalContent>
             {(Object.keys(SORT_LABELS) as AlbumSortOption[]).map((opt) => (
               <S.SortOption
                 key={opt}
@@ -248,12 +265,12 @@ export function AlbumsTab() {
                       : 'radio-button-off'
                   }
                   size={22}
-                  color="#f97316"
+                  color={theme.primary}
                 />
                 <S.SortOptionText>{SORT_LABELS[opt]}</S.SortOptionText>
               </S.SortOption>
             ))}
-          </View>
+          </SortModalContent>
         </S.SortModalOverlay>
       </Modal>
 
@@ -268,18 +285,3 @@ export function AlbumsTab() {
     </S.Container>
   );
 }
-
-const sortModalStyle = {
-  position: 'absolute' as const,
-  top: 120,
-  right: 16,
-  left: 16,
-  backgroundColor: '#fff',
-  borderRadius: 12,
-  padding: 8,
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.15,
-  shadowRadius: 8,
-  elevation: 5,
-};

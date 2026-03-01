@@ -1,13 +1,21 @@
 import styled from 'styled-components/native';
 
-export const Overlay = styled.Pressable`
+export const Overlay = styled.View`
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.4);
   justify-content: flex-end;
 `;
 
+export const Backdrop = styled.Pressable`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
 export const Sheet = styled.View`
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   padding-bottom: 32px;
@@ -22,7 +30,7 @@ export const Handle = styled.View`
 export const HandleBar = styled.View`
   width: 36px;
   height: 4px;
-  background-color: #e5e7eb;
+  background-color: ${(props: any) => props.theme.border};
   border-radius: 2px;
 `;
 
@@ -31,7 +39,7 @@ export const AlbumInfo = styled.View`
   align-items: center;
   padding: 16px;
   border-bottom-width: 1px;
-  border-bottom-color: #f3f4f6;
+  border-bottom-color: ${(props: any) => props.theme.border};
 `;
 
 export const Artwork = styled.Image`
@@ -48,12 +56,12 @@ export const AlbumDetails = styled.View`
 export const Title = styled.Text`
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const Subtitle = styled.Text`
   font-size: 14px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -70,6 +78,6 @@ export const MenuIcon = styled.View`
 
 export const MenuText = styled.Text`
   font-size: 16px;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-left: 16px;
 `;

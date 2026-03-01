@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
   flex: 1;
-  background-color: #fff;
+  background-color: ${(props: any) => props.theme.background};
 `;
 
 export const Section = styled.View`
@@ -21,12 +21,12 @@ export const SectionHeader = styled.View`
 export const SectionTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
 `;
 
 export const SeeAll = styled.Text`
   font-size: 14px;
-  color: #f97316;
+  color: ${(props: any) => props.theme.primary};
   font-weight: 600;
 `;
 
@@ -49,13 +49,13 @@ export const SongArtwork = styled.Image`
 export const SongTitle = styled.Text`
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-top: 8px;
 `;
 
 export const SongArtist = styled.Text`
   font-size: 12px;
-  color: #6b7280;
+  color: ${(props: any) => props.theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -74,13 +74,13 @@ export const ArtistImage = styled.Image`
 export const ArtistName = styled.Text`
   font-size: 13px;
   font-weight: 500;
-  color: #1f2937;
+  color: ${(props: any) => props.theme.text};
   margin-top: 8px;
 `;
 
 export const EmptyText = styled.Text`
   font-size: 14px;
-  color: #9ca3af;
+  color: ${(props: any) => props.theme.textMuted};
 `;
 
 export const Loader = styled.View`
