@@ -1,0 +1,1 @@
+export { ArtistContextMenu } from './ArtistContextMenu';

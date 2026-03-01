@@ -1,0 +1,1 @@
+export { SongsTab } from './SongsTab';

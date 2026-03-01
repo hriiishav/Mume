@@ -1,0 +1,1 @@
+export { SuggestedTab } from './SuggestedTab';
