@@ -1,8 +1,8 @@
-# Music Player - React Native (Expo)
+# Mume
 
-A music streaming app using the JioSaavn API. Built with Expo, TypeScript, React Navigation, Zustand, and TanStack Query — following the **autonaut-platform** code structure.
+A music streaming app using the JioSaavn API. Built with Expo, TypeScript, React Navigation, Zustand, and TanStack Query 
 
-## Structure (Autonaut-style)
+## Structure
 
 ```
 src/
