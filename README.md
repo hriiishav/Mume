@@ -1,6 +1,7 @@
 # Mume
 
 A music streaming app using the JioSaavn API. Built with Expo, TypeScript, React Navigation, Zustand, and TanStack Query 
+Link to download apk file : https://expo.dev/artifacts/eas/9DLUpZJghYnukP5hCHdnNU.apk
 
 ## Structure
 
